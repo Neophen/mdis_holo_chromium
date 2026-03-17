@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.12
+
+### Improvements
+- Rebranded extension to **Holo Chromium** with updated package metadata and repository
+
 ## 0.4.11
 
 ### New Features
