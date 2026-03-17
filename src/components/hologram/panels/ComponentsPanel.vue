@@ -9,26 +9,23 @@ import type { HologramTreeNode } from "@/composables/useHologramSocket"
 const store = useHologramStore()
 const searchQuery = ref("")
 
-function flattenTree(node: HologramTreeNode | null): HologramTreeNode[] {
-  if (!node) return []
-  const result: HologramTreeNode[] = []
-  if (node.type !== "root") result.push(node)
-  for (const child of node.children) {
-    result.push(...flattenTree(child))
+function filterTree(node: HologramTreeNode, query: string): HologramTreeNode | null {
+  const nameMatches = node.name.toLowerCase().includes(query)
+  const filteredChildren = node.children
+    .map((child) => filterTree(child, query))
+    .filter((child): child is HologramTreeNode => child !== null)
+
+  // Keep node if it matches or has matching descendants
+  if (nameMatches || filteredChildren.length > 0) {
+    return { ...node, children: nameMatches ? node.children : filteredChildren }
   }
-  return result
+  return null
 }
 
 const filteredTree = computed(() => {
   if (!searchQuery.value || !store.componentTree) return store.componentTree
   const query = searchQuery.value.toLowerCase()
-  const allNodes = flattenTree(store.componentTree)
-  const matching = allNodes.filter((n) => n.name.toLowerCase().includes(query))
-  if (matching.length === 0) return store.componentTree
-  return {
-    ...store.componentTree,
-    children: matching,
-  } as HologramTreeNode
+  return filterTree(store.componentTree, query)
 })
 </script>
 

@@ -51,7 +51,7 @@ export interface HologramComponent {
 export interface HologramTreeNode {
   id: string
   name: string
-  type: "root" | "page" | "component"
+  type: "root" | "page" | "component" | "layout" | "runtime"
   route?: string
   file?: string
   props?: HologramProp[]

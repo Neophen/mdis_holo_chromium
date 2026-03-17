@@ -30,6 +30,8 @@ function shortName(name: string): string {
 const badgeClass: Record<string, string> = {
   page: "bg-green-500/15 text-green-500",
   component: "bg-blue-500/15 text-blue-500",
+  layout: "bg-purple-500/15 text-purple-500",
+  runtime: "bg-orange-500/15 text-orange-500",
 }
 </script>
 

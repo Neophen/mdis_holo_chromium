@@ -15,6 +15,7 @@ export const useHologramStore = defineStore("hologram", () => {
   // State
   const overview = ref<HologramOverview | null>(null)
   const componentTree = ref<HologramTreeNode | null>(null)
+  const currentRoute = ref<string | null>(null)
   const selectedComponentId = ref<string | null>(null)
   const selectedComponent = ref<HologramComponent | null>(null)
   const routes = ref<HologramRoute[]>([])
@@ -42,7 +43,19 @@ export const useHologramStore = defineStore("hologram", () => {
   }
 
   function fetchComponentTree() {
-    send("get_component_tree")
+    const payload: Record<string, unknown> = {}
+    if (currentRoute.value) {
+      payload.route = currentRoute.value
+    }
+    send("get_component_tree", payload)
+  }
+
+  function setCurrentRoute(route: string | null) {
+    const changed = currentRoute.value !== route
+    currentRoute.value = route
+    if (changed && status.value === "connected") {
+      fetchComponentTree()
+    }
   }
 
   function selectComponent(id: string) {
@@ -133,6 +146,7 @@ export const useHologramStore = defineStore("hologram", () => {
     status,
     overview,
     componentTree,
+    currentRoute,
     selectedComponentId,
     selectedComponent,
     routes,
@@ -147,6 +161,7 @@ export const useHologramStore = defineStore("hologram", () => {
     initialize,
     fetchOverview,
     fetchComponentTree,
+    setCurrentRoute,
     selectComponent,
     fetchRoutes,
     fetchResources,
