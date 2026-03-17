@@ -10,7 +10,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  select: [id: string]
+  select: [id: string, node: HologramTreeNode]
 }>()
 
 const expanded = ref(true)
@@ -44,7 +44,7 @@ const badgeClass: Record<string, string> = {
       :node="child"
       :selected-id="selectedId"
       :depth="0"
-      @select="emit('select', $event)"
+      @select="emit('select', $event, child)"
     />
   </template>
 
@@ -54,7 +54,7 @@ const badgeClass: Record<string, string> = {
       class="flex items-center py-1 pr-2 cursor-pointer transition-colors whitespace-nowrap"
       :style="{ paddingLeft: `${depth * 16 + 8}px` }"
       :class="selectedId === node.id ? 'bg-[var(--ui-primary)]/10' : 'hover:bg-[var(--ui-bg-accented)]'"
-      @click="emit('select', node.id)"
+      @click="emit('select', node.id, node)"
     >
       <!-- Toggle arrow -->
       <span
@@ -80,6 +80,24 @@ const badgeClass: Record<string, string> = {
       >
         {{ node.type }}
       </span>
+
+      <!-- CID count from live tree -->
+      <span
+        v-if="node.cids && node.cids.length > 1"
+        class="text-[9px] text-[var(--ui-text-dimmed)] ml-1 font-mono"
+        :title="node.cids.join(', ')"
+      >
+        x{{ node.cids.length }}
+      </span>
+
+      <!-- State key count -->
+      <span
+        v-if="node.state_keys && node.state_keys.length > 0"
+        class="text-[9px] text-cyan-500/60 ml-1 font-mono"
+        :title="node.state_keys.join(', ')"
+      >
+        {{ node.state_keys.length }} keys
+      </span>
     </div>
 
     <!-- Children -->
@@ -90,7 +108,7 @@ const badgeClass: Record<string, string> = {
         :node="child"
         :selected-id="selectedId"
         :depth="depth + 1"
-        @select="emit('select', $event)"
+        @select="(id: string, n: HologramTreeNode) => emit('select', id, n)"
       />
     </div>
   </template>

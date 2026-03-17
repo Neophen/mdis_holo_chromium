@@ -19,6 +19,7 @@ declare module 'vue' {
     HologramConnectionBadge: typeof import('./../components/hologram/ConnectionBadge.vue')['default']
     HologramDevtoolsLayout: typeof import('./../components/hologram/DevtoolsLayout.vue')['default']
     HologramInspectorSection: typeof import('./../components/hologram/InspectorSection.vue')['default']
+    HologramLiveStateValue: typeof import('./../components/hologram/LiveStateValue.vue')['default']
     HologramPanelsComponentsPanel: typeof import('./../components/hologram/panels/ComponentsPanel.vue')['default']
     HologramPanelsOverviewPanel: typeof import('./../components/hologram/panels/OverviewPanel.vue')['default']
     HologramPanelsPagesPanel: typeof import('./../components/hologram/panels/PagesPanel.vue')['default']

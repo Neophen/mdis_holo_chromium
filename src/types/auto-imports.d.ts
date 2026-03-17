@@ -405,7 +405,7 @@ declare global {
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, ShallowRef, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
   // @ts-ignore
-  export type { ConnectionStatus, HologramOverview, HologramProp, HologramAction, HologramCommand, HologramFunction, HologramComponent, HologramTreeNode, HologramRoute, HologramAttribute, HologramRelationship, HologramResource } from '../composables/useHologramSocket'
+  export type { ConnectionStatus, HologramOverview, HologramProp, HologramAction, HologramCommand, HologramFunction, HologramComponent, HologramTreeNode, HologramRoute, HologramAttribute, HologramRelationship, HologramResource, TypedValue, LiveStateResponse, LiveSnapshot, LiveTreeResponse, ActionEvent } from '../composables/useHologramSocket'
   import('../composables/useHologramSocket')
   // @ts-ignore
   export type { TimelineEvent } from '../stores/hologram.store'

@@ -65,7 +65,7 @@ const navItems = [
     <div class="flex-1 flex flex-col overflow-hidden min-w-0">
       <!-- Connection bar -->
       <div class="h-7 flex-shrink-0 bg-[var(--ui-bg-elevated)] border-b border-[var(--ui-border)] flex items-center px-3">
-        <ConnectionBadge :status="store.status" />
+        <ConnectionBadge :status="store.status" :bridge-connected="store.bridgeConnected" />
       </div>
 
       <!-- Active panel -->

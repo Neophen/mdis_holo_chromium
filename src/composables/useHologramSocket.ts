@@ -58,6 +58,14 @@ export interface HologramTreeNode {
   file?: string
   props?: HologramProp[]
   children: HologramTreeNode[]
+  // Live tree extensions (present when bridge is connected)
+  cid?: string
+  cids?: string[]
+  state_keys?: string[]
+  // Loop instance extensions
+  instance_index?: number
+  instance_props?: Record<string, unknown>
+  loop_source?: string
 }
 
 export interface HologramRoute {
@@ -85,6 +93,51 @@ export interface HologramResource {
   line: number
   attributes: HologramAttribute[]
   relationships: HologramRelationship[]
+}
+
+// Typed value format from bridge (preserves Hologram type info)
+export interface TypedValue {
+  _t: "integer" | "float" | "string" | "atom" | "boolean" | "nil" | "list" | "tuple" | "map" | "struct" | "pid" | "function" | "unknown"
+  v: unknown
+  module?: string // for structs
+}
+
+// Merged live state response: live data from bridge + static metadata from server
+export interface LiveStateResponse {
+  cid: string
+  module: string
+  state: Record<string, TypedValue>
+  emitted_context: Record<string, TypedValue>
+  // Static metadata merged by server
+  actions?: HologramAction[]
+  commands?: HologramCommand[]
+  props?: HologramProp[]
+  functions?: HologramFunction[]
+  file?: string
+  line?: number
+  // Loop instance props (resolved from page state for loop-rendered components)
+  instance_props?: Record<string, unknown>
+}
+
+export interface LiveSnapshot {
+  page: { cid: string; module: string; state: Record<string, TypedValue>; emitted_context: Record<string, TypedValue> } | null
+  components: Record<string, { cid: string; module: string; state: Record<string, TypedValue>; emitted_context: Record<string, TypedValue> }>
+  timestamp: number
+}
+
+export interface LiveTreeResponse {
+  root: HologramTreeNode
+  bridge_connected: boolean
+  snapshot_timestamp: number | null
+  active_page: string | null
+}
+
+export interface ActionEvent {
+  name: string
+  target: string
+  params: TypedValue
+  duration: number
+  timestamp: number
 }
 
 type MessageHandler = (data: unknown) => void

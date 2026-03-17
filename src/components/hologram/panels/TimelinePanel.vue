@@ -25,6 +25,11 @@ function formatTime(ts: number): string {
     + "." + String(d.getMilliseconds()).padStart(3, "0")
 }
 
+function formatDuration(event: TimelineEvent): string {
+  if (!event.duration) return ""
+  return `${event.duration.toFixed(1)}ms`
+}
+
 const typeColors: Record<string, string> = {
   action: "bg-green-500/15 text-green-500",
   command: "bg-blue-500/15 text-blue-500",
@@ -47,6 +52,18 @@ const typeColors: Record<string, string> = {
       </button>
       <span class="text-[11px]" :class="store.isRecording ? 'text-red-500' : 'text-[var(--ui-text-dimmed)]'">
         {{ store.isRecording ? 'Recording' : 'Not recording' }}
+      </span>
+      <span
+        v-if="store.bridgeConnected"
+        class="text-[10px] text-green-500/70"
+      >
+        (live)
+      </span>
+      <span
+        v-else
+        class="text-[10px] text-[var(--ui-text-dimmed)]"
+      >
+        (no bridge)
       </span>
       <button
         class="w-6 h-6 flex items-center justify-center rounded text-[var(--ui-text-dimmed)] hover:text-[var(--ui-text-muted)] hover:bg-[var(--ui-bg-accented)]"
@@ -81,7 +98,7 @@ const typeColors: Record<string, string> = {
             <rect x="4" y="4" width="16" height="16" rx="2"/>
             <line x1="4" y1="12" x2="20" y2="12"/>
           </svg>
-          <span class="text-sm">No events</span>
+          <span class="text-sm">{{ store.bridgeConnected ? 'No events yet' : 'Connect bridge for live events' }}</span>
         </div>
         <div v-else class="py-1">
           <div
@@ -99,6 +116,12 @@ const typeColors: Record<string, string> = {
               {{ event.type }}
             </span>
             <span class="font-mono">{{ event.name }}</span>
+            <span
+              v-if="event.duration"
+              class="text-[10px] text-cyan-500/70 font-mono"
+            >
+              {{ formatDuration(event) }}
+            </span>
             <span class="ml-auto font-mono text-[10px] text-[var(--ui-text-dimmed)]">{{ event.source }}</span>
           </div>
         </div>
