@@ -9,7 +9,7 @@ const [major, minor, patch, label = "0"] = version
 
 export default {
   author: {
-    email: "devtools@hologram.dev",
+    email: "hello@themykolas.com",
   },
   name: env.mode === "staging" ? `[INTERNAL] ${name}` : displayName || name,
   description,
@@ -45,9 +45,10 @@ export default {
     },
   ],
   icons: {
-    16: "src/assets/logo.png",
-    24: "src/assets/logo.png",
-    32: "src/assets/logo.png",
-    128: "src/assets/logo.png",
+    16: "src/assets/icons/icon-16.png",
+    24: "src/assets/icons/icon-24.png",
+    32: "src/assets/icons/icon-32.png",
+    48: "src/assets/icons/icon-48.png",
+    128: "src/assets/icons/icon-128.png",
   },
 } as ManifestV3Export
