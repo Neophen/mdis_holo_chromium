@@ -25,6 +25,7 @@ declare module 'vue' {
     HologramPanelsResourcesPanel: typeof import('./../components/hologram/panels/ResourcesPanel.vue')['default']
     HologramPanelsTimelinePanel: typeof import('./../components/hologram/panels/TimelinePanel.vue')['default']
     HologramResourceInspector: typeof import('./../components/hologram/ResourceInspector.vue')['default']
+    HologramStateValue: typeof import('./../components/hologram/StateValue.vue')['default']
     LoadingSpinner: typeof import('./../components/state/LoadingSpinner.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterLinkUp: typeof import('./../components/RouterLinkUp.vue')['default']

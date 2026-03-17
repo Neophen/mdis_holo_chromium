@@ -112,6 +112,13 @@ export const useHologramStore = defineStore("hologram", () => {
       resources.value = data as Record<string, HologramResource>
     })
 
+    on("state_updated", (data) => {
+      // Re-fetch the selected component to get updated state
+      if (selectedComponentId.value) {
+        send("get_component", { id: selectedComponentId.value })
+      }
+    })
+
     on("subscribed", () => {
       // Fetch initial data
       fetchOverview()

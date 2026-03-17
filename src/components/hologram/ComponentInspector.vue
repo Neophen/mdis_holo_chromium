@@ -3,6 +3,7 @@ import { ref } from "vue"
 import { ChevronDown } from "lucide-vue-next"
 import type { HologramComponent } from "@/composables/useHologramSocket"
 import InspectorSection from "./InspectorSection.vue"
+import StateValue from "./StateValue.vue"
 
 const props = defineProps<{
   component: HologramComponent
@@ -44,9 +45,23 @@ function shortName(id: string): string {
       </div>
     </InspectorSection>
 
-    <!-- State keys -->
+    <!-- Live state -->
     <InspectorSection
-      v-if="component.stateKeys && component.stateKeys.length > 0"
+      v-if="component.state && Object.keys(component.state).length > 0"
+      title="state"
+      :default-expanded="true"
+    >
+      <StateValue
+        v-for="[key, val] in Object.entries(component.state)"
+        :key="key"
+        :name="key"
+        :value="val"
+      />
+    </InspectorSection>
+
+    <!-- State keys (fallback when no live state) -->
+    <InspectorSection
+      v-else-if="component.stateKeys && component.stateKeys.length > 0"
       title="state"
       :default-expanded="true"
     >
@@ -57,7 +72,7 @@ function shortName(id: string): string {
       >
         <span class="text-pink-400 mr-2">{{ key }}</span>
         <span class="text-[var(--ui-text-dimmed)] mr-2">:</span>
-        <span class="text-[var(--ui-primary)]">Reactive</span>
+        <span class="text-[var(--ui-text-muted)]">unknown</span>
       </div>
     </InspectorSection>
 
