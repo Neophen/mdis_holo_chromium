@@ -1,5 +1,5 @@
 {
-  "description": "Chrome DevTools extension for the Hologram web framework",
+  "description": "Chrome DevTools extension for the Hologram framework (Unofficial)",
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.3.0",
     "@eslint/compat": "^2.0.2",
@@ -48,15 +48,15 @@
     "webext-bridge": "^6.0.1",
     "webextension-polyfill": "^0.12.0"
   },
-  "displayName": "Hologram DevTools",
-  "name": "hologram-devtools-extension",
+  "displayName": "Holo Chromium",
+  "name": "holo-chromium-extension",
   "overrides": {
     "@crxjs/vite-plugin": "$@crxjs/vite-plugin"
   },
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/nickmcdonnough/hologram_devtools"
+    "url": "https://github.com/Neophen/holo_chromium"
   },
   "scripts": {
     "build": "npm run build:chrome",
