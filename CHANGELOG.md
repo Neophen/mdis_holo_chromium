@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.4.15
+
 ## 0.4.12
 
 ### Improvements
