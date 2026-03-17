@@ -27,9 +27,23 @@ function shortName(id: string): string {
       </span>
     </div>
 
-    <!-- Props -->
+    <!-- Live props (actual values) -->
     <InspectorSection
-      v-if="component.props && component.props.length > 0"
+      v-if="component.liveProps && Object.keys(component.liveProps).length > 0"
+      title="props"
+      :default-expanded="true"
+    >
+      <StateValue
+        v-for="[key, val] in Object.entries(component.liveProps)"
+        :key="key"
+        :name="key"
+        :value="val"
+      />
+    </InspectorSection>
+
+    <!-- Static props (type declarations, fallback) -->
+    <InspectorSection
+      v-else-if="component.props && component.props.length > 0"
       title="props"
       :default-expanded="true"
     >

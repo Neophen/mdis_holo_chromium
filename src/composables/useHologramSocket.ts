@@ -44,6 +44,7 @@ export interface HologramComponent {
   commands: HologramCommand[]
   stateKeys?: string[]
   state?: Record<string, unknown>
+  liveProps?: Record<string, unknown>
   functions: HologramFunction[]
   templateLine?: number
   initLine?: number
